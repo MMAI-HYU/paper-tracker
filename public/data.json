@@ -1,0 +1,37 @@
+{
+  "last_synced": "2026-03-30T06:20:37Z",
+  "total_papers": 2,
+  "members": [
+    "MultiModal",
+    "김 예찬"
+  ],
+  "entries": [
+    {
+      "date": "2026-03-27",
+      "member": "MultiModal",
+      "title": "SynC: Synthetic Image Caption Dataset Refinement with One-to-many Mapping for Zero-shot Image Captioning",
+      "keywords": [
+        "Vision&Language",
+        "ZIC",
+        "Synthetic Image"
+      ],
+      "venues": [
+        "MM"
+      ],
+      "link": "https://arxiv.org/abs/2507.18616"
+    },
+    {
+      "date": "2026-03-27",
+      "member": "김 예찬",
+      "title": "SAIL: Similarity-Aware Guidance and Inter-Caption Augmentation-based Learning for Weakly-Supervised Dense Video Captioning",
+      "keywords": [
+        "Vision&Language",
+        "WSDVC"
+      ],
+      "venues": [
+        "CVPR"
+      ],
+      "link": "https://arxiv.org/abs/2603.05437"
+    }
+  ]
+}
