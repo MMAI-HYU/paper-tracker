@@ -1,0 +1,56 @@
+name: Sync Notion & Deploy
+
+on:
+  schedule:
+    - cron: '0 0 * * *'   # 매일 UTC 00:00 (KST 09:00)
+  push:
+    branches: [main]
+  workflow_dispatch:        # 수동 실행
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 1) Notion에서 data.json 가져오기
+      - name: Fetch from Notion
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: python notion_fetch.py
+
+      # 2) React 빌드
+      - name: Install & Build
+        run: |
+          npm ci
+          npm run build
+
+      # 3) GitHub Pages 배포
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
